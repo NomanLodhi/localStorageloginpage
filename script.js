@@ -17,6 +17,7 @@ SignupForm.addEventListener('submit',(e)=>{
     let Username=document.getElementById('Username').value
    
     e.preventDefault();
+   
    localStorage.setItem('SignupEmail',JSON.stringify(SignupEmail));
    localStorage.setItem('SignupPassword',JSON.stringify(SignupPassword))
    localStorage.setItem('SignupPasswordConfirm',JSON.stringify(SignupPasswordConfirm))
@@ -51,7 +52,7 @@ SignInMain.addEventListener('submit',(e)=>{
     let Name=document.getElementById('Name');
     Name.innerHTML=JSON.parse(localStorage.getItem('UserName'))
 e.preventDefault();
-if(Email==EmailConfirm || Password==PasswordSetConfirm){
+if(Email==EmailConfirm && Password==PasswordSetConfirm){
     SignupPage.style.display='none'
     ProfilePage.style.display='block'
 
@@ -67,4 +68,25 @@ Logout.addEventListener('click',()=>{
     localStorage.clear();
     ProfilePage.style.display='none'
     SignupPage.style.display='block'
+})
+
+let PostSubmit=document.getElementById('PostSubmit');
+PostSubmit.addEventListener('submit',(e)=>{
+    e.preventDefault();
+    let ImgUrl=document.getElementById('ImgUrl').value;
+    let PostDescrip=document.getElementById('PostDescrip').value;
+    let PostContainer=document.getElementById('PostContainer');
+    localStorage.setItem('Image',JSON.stringify(ImgUrl));
+    localStorage.setItem('Description',JSON.stringify(PostDescrip));
+    let Image=JSON.parse(localStorage.getItem('Image'))
+    let Description=JSON.parse(localStorage.getItem('Description'))
+    console.log('Posted');
+    PostContainer.innerHTML+=`
+     <div class="col-lg-4 my-2">
+          <div class="card">
+            <img src="${Image}" alt="" class="card-img-top">
+            <p id="card-text" class="p-3">${Description}</p>
+          </div>
+        </div>
+    `
 })
