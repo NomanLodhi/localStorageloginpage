@@ -81,12 +81,37 @@ PostSubmit.addEventListener('submit',(e)=>{
     let Image=JSON.parse(localStorage.getItem('Image'))
     let Description=JSON.parse(localStorage.getItem('Description'))
     console.log('Posted');
-    PostContainer.innerHTML+=`
-     <div class="col-lg-4 my-2">
-          <div class="card">
-            <img src="${Image}" alt="" class="card-img-top">
-            <p id="card-text" class="p-3">${Description}</p>
-          </div>
-        </div>
-    `
+    // PostContainer.innerHTML+=`
+    //  <div class="col-lg-4 my-2">
+    //       <div class="card">
+    //         <img src="${Image}" alt="" class="card-img-top">
+    //         <p id="card-text" class="p-3">${Description}</p>
+    //       </div>
+    //     </div>
+    // `
+    
+        let col=document.createElement('div');
+        let card=document.createElement('div');
+        let image=document.createElement('img');
+        let des=document.createElement('p');
+        let btnDel=document.createElement('button');
+    
+        col.setAttribute('class','col-lg-4 my-3')
+        card.setAttribute('class','card pb-3');
+        image.setAttribute('src',Image)
+        des.setAttribute('class','p-3')
+        btnDel.setAttribute('class','btn btn-primary m-2')
+        btnDel.innerText='Delete Post'
+        PostContainer.append(col)
+        col.append(card)
+        des.innerText=Description
+        card.append(image)
+        card.append(des)
+        card.append(btnDel)
+btnDel.addEventListener('click',(e)=>{
+    e.preventDefault()
+    let dlt=e.target.parentElement;
+    dlt.style.display='none'
+})
+ 
 })
