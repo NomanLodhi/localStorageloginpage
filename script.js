@@ -9,12 +9,15 @@ let Password=document.getElementById('Password');
 let SignupPage=document.getElementById('SignupPage')
 let ProfilePage=document.getElementById('ProfilePage')
 let Logout=document.getElementById('Logout')
+let UpdateProfile=document.getElementById('UpdateProfile');
 
 SignupForm.addEventListener('submit',(e)=>{
+    let ProfilePicUrl=document.getElementById('ProfilePicUrl').value
     let SignupPassword=document.getElementById('SignupPassword').value;
     let SignupPasswordConfirm=document.getElementById('SignupPasswordConfirm').value;
     let SignupEmail=document.getElementById('SignupEmail').value;
     let Username=document.getElementById('Username').value
+    let ProfilePictureDisplay=document.getElementById('ProfilePictureDisplay')
    
     e.preventDefault();
    
@@ -22,9 +25,14 @@ SignupForm.addEventListener('submit',(e)=>{
    localStorage.setItem('SignupPassword',JSON.stringify(SignupPassword))
    localStorage.setItem('SignupPasswordConfirm',JSON.stringify(SignupPasswordConfirm))
    localStorage.setItem('UserName',JSON.stringify(Username))
+   localStorage.setItem('ProfilePic',JSON.stringify(ProfilePicUrl))
    let PasswordSet=localStorage.getItem('SignupPassword');
    let PasswordSetConfirm=localStorage.getItem('SignupPasswordConfirm');
    let EmailConfirm=localStorage.getItem('SignupEmail')
+   let ProfilePic=localStorage.getItem('ProfilePic')
+  ProfilePictureDisplay.setAttribute('src',JSON.parse(ProfilePic));
+  
+
  
    if(PasswordSet!=PasswordSetConfirm){
     alert('Password did not match')
@@ -40,6 +48,7 @@ if(SignupEmail=="" || SignupPassword=="" || SignupPasswordConfirm=="" || Usernam
     localStorage.removeItem('SignupEmail')
     localStorage.removeItem('SignupPassword')
     localStorage.removeItem('SignupPasswordConfirm')
+    localStorage.removeItem('ProfilePic')
 }
 
 })
@@ -81,37 +90,32 @@ PostSubmit.addEventListener('submit',(e)=>{
     let Image=JSON.parse(localStorage.getItem('Image'))
     let Description=JSON.parse(localStorage.getItem('Description'))
     console.log('Posted');
-    // PostContainer.innerHTML+=`
-    //  <div class="col-lg-4 my-2">
-    //       <div class="card">
-    //         <img src="${Image}" alt="" class="card-img-top">
-    //         <p id="card-text" class="p-3">${Description}</p>
-    //       </div>
-    //     </div>
-    // `
-    
         let col=document.createElement('div');
         let card=document.createElement('div');
         let image=document.createElement('img');
         let des=document.createElement('p');
         let btnDel=document.createElement('button');
+        if(Description=='' || Image==''){
+            alert('Please insert post image Url & post description')
+        }
+        else{
+            col.setAttribute('class','col-lg-4 my-3')
+            card.setAttribute('class','card pb-3');
+            image.setAttribute('src',Image)
+            des.setAttribute('class','p-3')
+            btnDel.setAttribute('class','btn btn-primary m-2')
+            btnDel.innerText='Delete Post'
+            PostContainer.append(col)
+            col.append(card)
+            des.innerText=Description
+            card.append(image)
+            card.append(des)
+            card.append(btnDel)
+        }
     
-        col.setAttribute('class','col-lg-4 my-3')
-        card.setAttribute('class','card pb-3');
-        image.setAttribute('src',Image)
-        des.setAttribute('class','p-3')
-        btnDel.setAttribute('class','btn btn-primary m-2')
-        btnDel.innerText='Delete Post'
-        PostContainer.append(col)
-        col.append(card)
-        des.innerText=Description
-        card.append(image)
-        card.append(des)
-        card.append(btnDel)
 btnDel.addEventListener('click',(e)=>{
     e.preventDefault()
     let dlt=e.target.parentElement;
     dlt.style.display='none'
 })
- 
 })

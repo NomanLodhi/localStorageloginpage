@@ -38,6 +38,10 @@
           <label for="exampleInputEmail1" class="form-label">User name</label>
           <input type="text" class="form-control" id="Username" aria-describedby="emailHelp">
         </div>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Profile Picture</label>
+          <input type="text" class="form-control" id="ProfilePicUrl" aria-describedby="emailHelp">
+        </div>
          
         <div class="mb-3">
           <label for="exampleInputPassword1" class="form-label">Password</label>
@@ -55,7 +59,11 @@
    <div class="container my-3" id="ProfilePage">
     <nav class="d-flex  justify-content-between">
         <h1>Profile Page</h1>
+      <div class="d-flex">
         <button class="btn-primary primary btn" id="Logout">Logout</button>
+        <img  alt="" id="ProfilePictureDisplay" src="" width="50" height="50" class="rounded-circle mx-3" >
+      
+      </div>
     </nav>
     <h1 class="my-4"><span class="text-primary">Username :</span> <span id="Name"></span></h1>
     <h1 class="my-4 mt-5 text-center display-5 fw-bold">Post Your Thoughts</h1>
